@@ -1,8 +1,7 @@
-import { ThemeProvider } from "@/features/theme/theme-provider";
 import { cn } from "@/shared/ui/utils";
-import { AppHeader } from "@/widgets/app-header/app-header";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
+import { AppProvider } from "./_providers/app-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,10 +27,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <ThemeProvider>
-          <AppHeader variant="public" />
-          {children}
-        </ThemeProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
