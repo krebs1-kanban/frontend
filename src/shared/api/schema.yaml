@@ -1,0 +1,273 @@
+openapi: 3.0.0
+paths:
+  /api/account:
+    get:
+      operationId: AccountController_getAccountByUserId
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+      tags:
+        - account
+    patch:
+      operationId: AccountController_patchAccount
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+      tags:
+        - account
+  /api/project:
+    post:
+      operationId: ProjectController_createProject
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - project
+    get:
+      operationId: ProjectController_getProjectById
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - project
+    patch:
+      operationId: ProjectController_patchProject
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - project
+    delete:
+      operationId: ProjectController_deleteProject
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - project
+  /api/project/user-projects:
+    get:
+      operationId: ProjectController_getUserProjects
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - project
+  /api/project/create-invite-link:
+    post:
+      operationId: ProjectController_createInviteLink
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - project
+  /api/project/delete-invite-link:
+    post:
+      operationId: ProjectController_deleteInviteLink
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - project
+  /api/auth/sign-up:
+    post:
+      operationId: AuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+        - auth
+  /api/auth/sign-in:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - auth
+  /api/auth/sign-out:
+    post:
+      operationId: AuthController_signOut
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - auth
+  /api/auth/session:
+    get:
+      operationId: AuthController_getSessionInfo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - auth
+info:
+  title: Project management API
+  description: Project management API
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    AccountDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        userId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: name
+          nullable: true
+      required:
+        - id
+        - userId
+        - name
+    UpdateAccountDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: new name
+          nullable: true
+      required:
+        - name
+    CreateProjectDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: project name
+      required:
+        - name
+    ProjectDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        inviteLink:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+          nullable: true
+        defaultRole:
+          type: string
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+          default: OBSERVER
+      required:
+        - id
+        - name
+        - inviteLink
+        - defaultRole
+    UpdateProjectDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: new project name
+        defaultRole:
+          type: string
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+          default: OBSERVER
+      required:
+        - id
+        - name
+        - defaultRole
+    SignUpDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        password:
+          type: string
+          example: '12345678'
+      required:
+        - email
+        - password
+    SignInDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        password:
+          type: string
+          example: '12345678'
+      required:
+        - email
+        - password

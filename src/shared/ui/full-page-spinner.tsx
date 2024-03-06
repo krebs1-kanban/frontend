@@ -1,4 +1,4 @@
-import { useAppearanceDelay } from '../lib/react-std'
+import { useAppearanceDelay } from "../lib/react-std";
 import { Spinner } from "./spinner";
 
 export function FullPageSpinner({ isLoading }: { isLoading: boolean }) {

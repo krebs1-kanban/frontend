@@ -1,4 +1,11 @@
-import { Children, createElement, isValidElement, startTransition, useEffect, useState } from 'react'
+import {
+  Children,
+  createElement,
+  isValidElement,
+  startTransition,
+  useEffect,
+  useState,
+} from "react";
 
 export function useAppearanceDelay(
   show?: boolean,
