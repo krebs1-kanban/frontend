@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#orval
+/src/shared/api/schema.yaml
+/src/shared/api/generated.ts

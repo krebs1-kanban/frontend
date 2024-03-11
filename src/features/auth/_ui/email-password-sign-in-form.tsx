@@ -1,5 +1,6 @@
 "use client";
 
+import { Alert, AlertTitle } from "@/shared/ui/alert";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -7,10 +8,12 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { useSignInForm } from "../_vm/use-sign-in-form";
 import { Spinner } from "@/shared/ui/spinner";
+import { cn } from "@/shared/ui/utils";
+import { useSignInForm } from "../_vm/use-sign-in-form";
 
 export function EmailPasswordSignInForm() {
   const { form, errorMessage, mutate, isPending } = useSignInForm();
@@ -36,6 +39,7 @@ export function EmailPasswordSignInForm() {
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -56,10 +60,16 @@ export function EmailPasswordSignInForm() {
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
-          <Button disabled={isPending}>
+          {errorMessage && (
+            <Alert className={cn("mt-2")} variant="destructive">
+              <AlertTitle>{errorMessage}</AlertTitle>
+            </Alert>
+          )}
+          <Button className={cn("mt-2")} disabled={isPending}>
             {isPending && (
               <Spinner className="mr-2 h-4 w-4 " aria-label="Загрузка входа" />
             )}

@@ -1,4 +1,5 @@
-import { authControllerSignUp } from "@/shared/api/generated";
+import { ErrorType } from "@/shared/api/api-instance";
+import { SignUpDto, authControllerSignUp } from "@/shared/api/generated";
 import { ROUTES } from "@/shared/constants/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -31,13 +32,15 @@ export function useSignUpForm() {
     },
   });
 
-  const signUpMutation = useMutation({
+  const signUpMutation = useMutation<
+    void,
+    ErrorType<Error>,
+    SignUpDto,
+    unknown
+  >({
     mutationFn: authControllerSignUp,
     onSuccess() {
       router.push(ROUTES.HOME);
-    },
-    onError(error, variables, context) {
-      console.log(error, variables, context);
     },
   });
 
