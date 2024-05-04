@@ -38,3 +38,6 @@ next-env.d.ts
 # orval
 /src/shared/api/schema.yaml
 /src/shared/api/generated.ts
+
+#ide
+/.idea/
