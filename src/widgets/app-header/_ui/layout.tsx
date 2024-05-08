@@ -20,7 +20,7 @@ export function Layout({
   actions: React.ReactNode;
 }) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop:blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-card">
       <div className="px-4 flex h-14 items-center">
         <div className="md:hidden mr-2">
           <Sheet>

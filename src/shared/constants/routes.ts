@@ -6,4 +6,6 @@ export const ROUTES = {
   PROFILE: "/profile",
 
   PROJECTS: "/projects",
+  BOARDS: "/boards",
+  CARD: "/card",
 };

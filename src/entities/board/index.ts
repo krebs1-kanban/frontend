@@ -1,1 +1,5 @@
-export { useBoardByIdQuery, boardKey } from "./_vm/queries";
+export {
+  boardKey,
+  useGetBoardByCardIdQuery,
+  useGetBoardByIdQuery,
+} from "./_vm/queries";

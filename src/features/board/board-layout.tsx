@@ -1,12 +1,12 @@
 "use client";
-import { useBoardByIdQuery } from "@/entities/board";
+import { useGetBoardByIdQuery } from "@/entities/board";
 import { Spinner } from "@/shared/ui/spinner";
 import { cn } from "@/shared/ui/utils";
 import { CreateListForm } from "./_ui/create-list-form";
 import { BoardList } from "./_ui/list";
 
 export function BoardLayout({ boardId }: { boardId: string }) {
-  const boardQuery = useBoardByIdQuery(boardId);
+  const boardQuery = useGetBoardByIdQuery(boardId);
 
   if (boardQuery.isPending) {
     return <Spinner aria-label="Загрузка профиля" />;
