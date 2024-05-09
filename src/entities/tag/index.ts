@@ -1,1 +1,1 @@
-export {useCreateTagMutation} from './_vm/queries'
+export {useCreateTagMutation, useUpdateTagMutation} from './_vm/queries'
