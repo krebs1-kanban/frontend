@@ -1,3 +1,14 @@
-export default function Project({ params }: { params: {projectId: string} }) {
-  return params.projectId;
+import { Project } from '@/features/project/project'
+import { cn } from '@/shared/ui/utils'
+
+export const metadata = {
+  title: 'Проект'
+}
+
+export default function ProjectPage({ params }: { params: { projectId: string } }) {
+  return (
+    <main className={cn("w-full")}>
+      <Project projectId={params.projectId}/>
+    </main>
+  );
 }

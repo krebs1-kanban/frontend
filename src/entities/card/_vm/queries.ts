@@ -84,10 +84,20 @@ export const useAttachFileMutation = () => {
         formData.append("files", file);
       });
 
-      return cardControllerAttachFile(id, {
-        headers: { "Content-Type": "multipart/form-data" },
-        data: formData,
-      });
+      const blobs = Array.from(files).map(
+        (file) => new Blob([file], { type: file.type }),
+      );
+
+      return cardControllerAttachFile(
+        id,
+        {
+          files: blobs,
+        },
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          data: formData,
+        },
+      );
     },
     async onSettled(data, err, vars, context) {
       await queryClient.invalidateQueries({ queryKey: boardKey });

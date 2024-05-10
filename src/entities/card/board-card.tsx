@@ -14,13 +14,10 @@ export function BoardCard({
   className?: string;
 }) {
   return (
-    <li className={cn(className)}>
+    <Link href={`${ROUTES.CARD}/${cardData.id}`}>
       <Card className={cn("px-3 pb-1 pt-2")}>
         <CardHeader className={cn("p-0 w-full")}>
           <TagBadgeList className={cn("mb-1")} tags={cardData.tags} />
-          <Link href={`${ROUTES.CARD}/${cardData.id}`}>
-            Dashboard
-          </Link>
           <h5
             className={cn(
               "w-full truncate text-sm font-semibold text-foreground/80 mb-1",
@@ -36,6 +33,6 @@ export function BoardCard({
           />
         </CardContent>
       </Card>
-    </li>
+    </Link>
   );
 }

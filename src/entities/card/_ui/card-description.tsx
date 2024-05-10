@@ -15,8 +15,6 @@ export function CardDescription({
   const hasDate = Boolean(cardData.dueDateTime);
   const hasAttachments = Boolean(cardData.files.length)
 
-  console.log(hasAttachments, cardData.name, cardData.files, cardData)
-
   if (!(hasDescription || hasDate || hasAttachments)) return null;
 
   return (

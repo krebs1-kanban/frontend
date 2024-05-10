@@ -16,7 +16,9 @@ export function UploadFile({
   const { mutate } = useAttachFileMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e)
     if (e.target.files && e.target.files.length) {
+      console.log(1)
       mutate({ id: cardId, files: e.target.files });
     }
     setOpen(false);

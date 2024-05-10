@@ -1,15 +1,14 @@
 "use client";
 import { useGetBoardByIdQuery } from "@/entities/board";
-import { Spinner } from "@/shared/ui/spinner";
+import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { cn } from "@/shared/ui/utils";
-import { CreateListForm } from "./_ui/create-list-form";
-import { BoardList } from "./_ui/list";
+import { BoardMain } from "./_ui/board-main";
 
 export function BoardLayout({ boardId }: { boardId: string }) {
   const boardQuery = useGetBoardByIdQuery(boardId);
 
   if (boardQuery.isPending) {
-    return <Spinner aria-label="Загрузка профиля" />;
+    return <FullPageSpinner isLoading aria-label="Загрузка доски" />;
   }
 
   if (!boardQuery.data) {
@@ -17,23 +16,11 @@ export function BoardLayout({ boardId }: { boardId: string }) {
   }
 
   return (
-    <div
-      className={cn(["grow min-h-full min-w-full flex flex-col"])}
-    >
-      <div className={cn(["grow relative mt-3"])}>
-        <ol
-          className={cn(
-            "list-none absolute inset-0 flex flex-row min-h-full min-w-full overflow-x-auto scrollbar",
-          )}
-        >
-          {boardQuery.data?.lists.map((list) => (
-            <BoardList listData={list} key={list.id} />
-          ))}
-          <li className={cn("px-1.5 min-w-[272px] max-w-[272px]")}>
-            <CreateListForm boardData={boardQuery.data!} className={cn()} />
-          </li>
-        </ol>
-      </div>
+    <div className={cn(["grow min-h-full min-w-full flex flex-col"])}>
+      <BoardMain
+        className={cn("grow relative mt-3 mx-[10px]")}
+        board={boardQuery.data!}
+      />
     </div>
   );
 }
