@@ -15,7 +15,12 @@ export function BoardCard({
 }) {
   return (
     <Link href={`${ROUTES.CARD}/${cardData.id}`}>
-      <Card className={cn("px-3 pb-1 pt-2")}>
+      <Card
+        className={cn(
+          "px-3 pb-1 pt-2",
+          cardData.isArchived && "border-destructive",
+        )}
+      >
         <CardHeader className={cn("p-0 w-full")}>
           <TagBadgeList className={cn("mb-1")} tags={cardData.tags} />
           <h5

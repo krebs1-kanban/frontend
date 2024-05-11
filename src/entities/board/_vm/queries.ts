@@ -1,21 +1,25 @@
 import { projectKey } from "@/entities/projects";
 import {
-  BoardWithDetailsDto,
+  BoardControllerGetByIdParams,
+  UpdateBoardDto,
   boardControllerCreate,
   boardControllerGetByCardId,
   boardControllerGetById,
   boardControllerMoveCard,
   boardControllerMoveList,
+  boardControllerUpdate,
 } from "@/shared/api/generated";
-import { arrayMove } from "@dnd-kit/sortable";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const boardKey = ["boards"];
 
-export const useGetBoardByIdQuery = (id: string) => {
+export const useGetBoardByIdQuery = (
+  id: string,
+  params?: BoardControllerGetByIdParams,
+) => {
   return useQuery({
     queryKey: [...boardKey, { id }],
-    queryFn: () => boardControllerGetById(id),
+    queryFn: () => boardControllerGetById(id, params),
   });
 };
 
@@ -32,6 +36,17 @@ export const useCreateBoardMutation = () => {
     mutationFn: boardControllerCreate,
     async onSettled(data, err, vars, context) {
       await queryClient.invalidateQueries({ queryKey: projectKey });
+    },
+  });
+};
+
+export const useUpdateBoardMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...other }: { id: string } & UpdateBoardDto) =>
+      boardControllerUpdate(id, other),
+    async onSettled(data, err, vars, context) {
+      await queryClient.invalidateQueries({ queryKey: boardKey });
     },
   });
 };

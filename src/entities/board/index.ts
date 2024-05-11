@@ -5,4 +5,5 @@ export {
   useGetBoardByIdQuery,
   useMoveCardMutation,
   useMoveListMutation,
+  useUpdateBoardMutation,
 } from "./_vm/queries";
