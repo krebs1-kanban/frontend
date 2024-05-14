@@ -2,6 +2,7 @@ import { BoardDto } from "@/shared/api/generated";
 import { Toggle } from "@/shared/ui/toggle";
 import { cn } from "@/shared/ui/utils";
 import { Archive } from "lucide-react";
+import { BoardActions } from "./board-actions";
 import { BoardTitle } from "./board-title";
 
 type togglesDefaultValues = {
@@ -26,8 +27,13 @@ export function BoardHeader({
         className,
       )}
     >
-      <div className={cn("flex flex-row gap-x-4 max-w-full")}>
+      <div className={cn("flex flex-row flex-wrap items-center gap-x-4 max-w-full")}>
         <BoardTitle boardId={boardData.id} title={boardData.name} />
+        {boardData.isArchived && (
+          <span className={cn("text-xs font-normal text-foreground/60 px-2")}>
+            Доска заархивирована
+          </span>
+        )}
       </div>
       <div className={cn("flex flex-row gap-x-4")}>
         <Toggle
@@ -38,6 +44,7 @@ export function BoardHeader({
         >
           <Archive className={cn("w-5 h-5")} />
         </Toggle>
+        <BoardActions boardData={boardData} />
       </div>
     </div>
   );

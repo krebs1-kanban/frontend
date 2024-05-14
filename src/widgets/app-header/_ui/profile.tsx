@@ -17,9 +17,11 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { cn } from "@/shared/ui/utils";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";
+import { useSignOut } from "../_vm/use-signout";
 
 export function Profile() {
   const profile = useProfileQuery();
+  const { signOut, isPending } = useSignOut();
 
   const isLoading = profile.isLoading && !profile.data;
   const isError = profile.isError;
@@ -49,14 +51,21 @@ export function Profile() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="">
-              <User />
-              <span>Профиль</span>
+            <Link href={ROUTES.PROFILE} className={cn("h-8 p-2")}>
+              <User className={cn("h-4 w-4")} />
+              <span className={cn("text-sm leading-4")}>Профиль</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <LogOut />
-            <span>Выйти</span>
+          <DropdownMenuItem asChild>
+            <Button
+              variant="ghost"
+              className={cn("h-8 p-2 justify-start")}
+              onClick={() => signOut({})}
+              disabled={isPending}
+            >
+              <LogOut className={cn("h-4 w-4")} />
+              <span className={cn("text-sm leading-4")}>Выйти</span>
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

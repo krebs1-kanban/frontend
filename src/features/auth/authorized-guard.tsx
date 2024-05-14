@@ -2,27 +2,32 @@
 
 import { useSessionQuery } from "@/entities/session/_vm/use-session-query";
 import { ROUTES } from "@/shared/constants/routes";
+import { SEARCH_PARAMS_KEYS } from "@/shared/constants/search-params-keys";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
-import { useRouter } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 
 export default function AuthorizedGuard({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const session = useSessionQuery();
 
-  const isError = session.isError;
-  const isLoading = session.isLoading && !session.data;
-  const isAuth = session.data;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  if (isError) router.replace(ROUTES.SIGN_IN);
+  if (session.isError) {
+    const params = !searchParams.toString()
+      ? ""
+      : `${searchParams.toString()}&`;
+    const callbackUrl = `${params}${SEARCH_PARAMS_KEYS.CALLBACK}=${pathname}`;
+    redirect(`${ROUTES.SIGN_IN}?${callbackUrl}`);
+  }
 
   return (
     <>
-      <FullPageSpinner isLoading={isLoading} />
-      {isAuth && children}
+      <FullPageSpinner isLoading={session.isPending} />
+      {session.isSuccess && children}
     </>
   );
 }
