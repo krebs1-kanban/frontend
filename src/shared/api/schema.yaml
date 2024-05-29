@@ -1,0 +1,1111 @@
+openapi: 3.0.0
+paths:
+  /api/projects:
+    post:
+      operationId: ProjectController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - projects
+    get:
+      operationId: ProjectController_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - projects
+  /api/projects/join/{inviteLink}:
+    post:
+      operationId: ProjectController_join
+      parameters:
+        - name: inviteLink
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectMemberDto'
+      tags:
+        - projects
+  /api/projects/{id}:
+    get:
+      operationId: ProjectController_getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectWithDetailsDto'
+      tags:
+        - projects
+    patch:
+      operationId: ProjectController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - projects
+  /api/project-link/generate/{id}:
+    patch:
+      operationId: ProjectLinkController_generate
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - projects
+  /api/project-link/remove/{id}:
+    patch:
+      operationId: ProjectLinkController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDto'
+      tags:
+        - projects
+  /api/boards:
+    post:
+      operationId: BoardController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBoardDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardDto'
+      tags:
+        - boards
+  /api/boards/by-card/{id}:
+    get:
+      operationId: BoardController_getByCardId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardWithDetailsDto'
+      tags:
+        - boards
+  /api/boards/{id}:
+    get:
+      operationId: BoardController_getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: showArchived
+          required: true
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardWithDetailsDto'
+      tags:
+        - boards
+    patch:
+      operationId: BoardController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBoardDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardDto'
+      tags:
+        - boards
+  /api/boards/move-list:
+    patch:
+      operationId: BoardController_moveList
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveListDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - boards
+  /api/boards/move-card:
+    patch:
+      operationId: BoardController_moveCard
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveCardDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - boards
+  /api/lists:
+    post:
+      operationId: ListController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDto'
+      tags:
+        - lists
+  /api/lists/{id}:
+    patch:
+      operationId: ListController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDto'
+      tags:
+        - lists
+  /api/cards:
+    post:
+      operationId: CardController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCardDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+  /api/cards/files/{id}:
+    post:
+      operationId: CardController_attachFile
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachFilesDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+    delete:
+      operationId: CardController_detachFile
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetachFileDto'
+      responses:
+        '204':
+          description: ''
+      tags:
+        - cards
+  /api/cards/{id}:
+    get:
+      operationId: CardController_getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+    patch:
+      operationId: CardController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCardDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+  /api/cards/add-tag/{id}:
+    patch:
+      operationId: CardController_addTag
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRemoveTagDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+  /api/cards/remove-tag/{id}:
+    patch:
+      operationId: CardController_removeTag
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRemoveTagDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+  /api/tags:
+    post:
+      operationId: TagController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDto'
+      tags:
+        - tags
+  /api/tags/by-board/{id}:
+    get:
+      operationId: TagController_getByBoardId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagDto'
+      tags:
+        - tags
+  /api/tags/{id}:
+    patch:
+      operationId: TagController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTagDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDto'
+      tags:
+        - tags
+    delete:
+      operationId: TagController_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+        - tags
+  /api/auth/sign-up:
+    post:
+      operationId: AuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+        - auth
+  /api/auth/sign-in:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '200':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailExistsError'
+      tags:
+        - auth
+  /api/auth/sign-out:
+    post:
+      operationId: AuthController_signOut
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - auth
+  /api/auth/session:
+    get:
+      operationId: AuthController_getSessionInfo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSessionInfoDto'
+      tags:
+        - auth
+  /api/users/{id}:
+    get:
+      operationId: UsersController_getProfileByUserId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileDto'
+      tags:
+        - users
+  /api/users:
+    get:
+      operationId: UsersController_getProfile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileDto'
+      tags:
+        - users
+info:
+  title: Project management API
+  description: Project management API
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    CreateProjectDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New project
+      required:
+        - name
+    ProjectDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: New project
+        isArchived:
+          type: boolean
+          example: false
+        inviteLink:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+          nullable: true
+        defaultRole:
+          type: string
+          example: USER
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+      required:
+        - id
+        - name
+        - isArchived
+        - inviteLink
+        - defaultRole
+    ProjectMemberDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        projectId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        role:
+          type: string
+          example: USER
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+      required:
+        - userId
+        - projectId
+        - role
+    ProfileDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: test
+          nullable: true
+        email:
+          type: string
+          example: test@test.ru
+        avatarImg:
+          type: string
+          example: /imgs/avatars/445849584.png
+          nullable: true
+      required:
+        - userId
+        - name
+        - email
+        - avatarImg
+    ProjectMemberWithDetailsDto:
+      type: object
+      properties:
+        profile:
+          $ref: '#/components/schemas/ProfileDto'
+        role:
+          type: string
+          example: USER
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+      required:
+        - profile
+        - role
+    BoardDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: Board 1
+        isArchived:
+          type: boolean
+          example: false
+        projectId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+      required:
+        - id
+        - name
+        - isArchived
+        - projectId
+    ProjectWithDetailsDto:
+      type: object
+      properties:
+        project:
+          $ref: '#/components/schemas/ProjectDto'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectMemberWithDetailsDto'
+        boards:
+          type: array
+          items:
+            $ref: '#/components/schemas/BoardDto'
+      required:
+        - project
+        - members
+        - boards
+    UpdateProjectDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New project name
+          nullable: true
+        defaultRole:
+          type: string
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+          nullable: true
+    CreateBoardDto:
+      type: object
+      properties:
+        projectId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: New board
+      required:
+        - projectId
+        - name
+    TagDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        boardId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: Tag 1
+        color:
+          type: string
+          example: '#FFFFFF'
+          nullable: true
+      required:
+        - id
+        - boardId
+        - name
+    FileDto:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+          nullable: true
+        name:
+          type: string
+        path:
+          type: string
+        extension:
+          type: string
+        size:
+          type: number
+          description: File size in kb
+      required:
+        - id
+        - name
+        - path
+        - extension
+        - size
+    CardDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        listId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: Card 1
+        description:
+          type: string
+          example: Card description
+          nullable: true
+        dueDateTime:
+          format: date-time
+          type: string
+        isArchived:
+          type: boolean
+          example: false
+        index:
+          type: number
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagDto'
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileDto'
+      required:
+        - id
+        - listId
+        - name
+        - description
+        - dueDateTime
+        - isArchived
+        - index
+        - tags
+        - files
+    ListDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        boardId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: List 1
+        isArchived:
+          type: boolean
+          example: false
+        index:
+          type: number
+        cards:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardDto'
+      required:
+        - id
+        - boardId
+        - name
+        - isArchived
+        - index
+        - cards
+    BoardWithDetailsDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        name:
+          type: string
+          example: Board 1
+        isArchived:
+          type: boolean
+          example: false
+        projectId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagDto'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListDto'
+      required:
+        - id
+        - name
+        - isArchived
+        - projectId
+        - tags
+        - lists
+    MoveListDto:
+      type: object
+      properties:
+        listId:
+          type: string
+        boardId:
+          type: string
+        fromIndex:
+          type: number
+        toIndex:
+          type: number
+      required:
+        - listId
+        - boardId
+        - fromIndex
+        - toIndex
+    MoveCardDto:
+      type: object
+      properties:
+        cardId:
+          type: string
+        fromListId:
+          type: string
+        toListId:
+          type: string
+        fromIndex:
+          type: number
+        toIndex:
+          type: number
+      required:
+        - cardId
+        - fromListId
+        - toListId
+        - fromIndex
+        - toIndex
+    UpdateBoardDto:
+      type: object
+      properties:
+        name:
+          type: string
+        isArchived:
+          type: boolean
+    CreateListDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: List 1
+        boardId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+      required:
+        - name
+        - boardId
+    UpdateListDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: List 1
+      required:
+        - name
+    CreateCardDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Card 1
+        description:
+          type: string
+          example: Card description 1
+          nullable: true
+        dueDateTime:
+          format: date-time
+          type: string
+          nullable: true
+        listId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+      required:
+        - name
+        - listId
+    AttachFilesDto:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+      required:
+        - files
+    DetachFileDto:
+      type: object
+      properties:
+        filename:
+          type: string
+      required:
+        - filename
+    AddRemoveTagDto:
+      type: object
+      properties:
+        tagId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+      required:
+        - tagId
+    UpdateCardDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Card 1
+          nullable: true
+        description:
+          type: string
+          example: Card description 1
+          nullable: true
+        dueDateTime:
+          format: date-time
+          type: string
+          nullable: true
+    CreateTagDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New tag
+        color:
+          type: string
+          example: '#FFFFFF'
+          nullable: true
+        boardId:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+      required:
+        - name
+        - boardId
+    UpdateTagDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New tag
+        color:
+          type: string
+          example: '#FFFFFF'
+          nullable: true
+    SignUpDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        password:
+          type: string
+          example: '12345678'
+      required:
+        - email
+        - password
+    SignInDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        password:
+          type: string
+          example: '12345678'
+      required:
+        - email
+        - password
+    EmailExistsError:
+      type: object
+      properties:
+        type:
+          type: string
+          example: email-exists
+      required:
+        - type
+    GetSessionInfoDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clt4n9p8c0000wxj5r339y91u
+        email:
+          type: string
+          example: test@test.com
+        iat:
+          type: number
+          example: 1709055090
+        exp:
+          type: number
+          example: 1709141490
+      required:
+        - id
+        - email
+        - iat
+        - exp
