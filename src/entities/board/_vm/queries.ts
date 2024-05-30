@@ -19,7 +19,7 @@ export const useGetBoardByIdQuery = (
 ) => {
   return useQuery({
     queryKey: [...boardKey, { id }],
-    queryFn: () => boardControllerGetById(id, params),
+    queryFn: () => boardControllerGetById(id, params!),
   });
 };
 
