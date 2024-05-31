@@ -1,12 +1,15 @@
-import { Card, CardContent, CardHeader } from "@/shared/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
 import React from "react";
+import { cn } from "../utils";
 
 export function FormPageLayout({
   title,
   form,
+  footer = null,
 }: {
   title: string;
   form: React.ReactNode;
+  footer?: React.ReactNode;
 }) {
   return (
     <div className="container relative  flex-col items-center justify-center self-center pt-24">
@@ -15,6 +18,9 @@ export function FormPageLayout({
           <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
         </CardHeader>
         <CardContent className="grid gap-4">{form}</CardContent>
+        {footer && (
+          <CardFooter className={cn("space-y-2")}>{footer}</CardFooter>
+        )}
       </Card>
     </div>
   );
