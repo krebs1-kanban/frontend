@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { publicConfig } from '../config/public-config'
 
 export const apiInstance = axios.create({
-  baseURL: "http://localhost:4200",
+  baseURL: publicConfig.BACKEND_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
