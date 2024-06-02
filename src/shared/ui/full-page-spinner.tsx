@@ -1,3 +1,5 @@
+"use client"
+
 import { useAppearanceDelay } from "../lib/react-std";
 import { Spinner } from "./spinner";
 

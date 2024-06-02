@@ -1,11 +1,12 @@
-import { useDetachFileMutation } from "@/entities/card/_vm/queries";
-import { apiInstance } from "@/shared/api/api-instance";
-import { FileDto } from "@/shared/api/generated";
-import { MAIN } from "@/shared/constants/main";
-import { writeToClipboard } from "@/shared/lib/clipboard-fns";
-import { Button } from "@/shared/ui/button";
-import { cn } from "@/shared/ui/utils";
-import Link from "next/link";
+import { useDetachFileMutation } from "@/entities/card/_vm/queries"
+import { apiInstance } from "@/shared/api/api-instance"
+import { FileDto } from "@/shared/api/generated"
+import { publicConfig } from '@/shared/config/public-config'
+import { MAIN } from "@/shared/constants/main"
+import { writeToClipboard } from "@/shared/lib/clipboard-fns"
+import { Button } from "@/shared/ui/button"
+import { cn } from "@/shared/ui/utils"
+import Link from "next/link"
 
 export function CardAttachment({
   className,
@@ -40,7 +41,7 @@ export function CardAttachment({
 
   const handleCopy = () => {
     writeToClipboard(
-      `${MAIN.API_URL}/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`,
+      `${publicConfig.BACKEND_URL}/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`,
     );
   };
 
@@ -48,7 +49,7 @@ export function CardAttachment({
     <div className={cn("flex flex-col gap-y-2 p-2")}>
       <h4 className={cn("text-sm font-bold")}>
         <Link
-          href={`${MAIN.API_URL}/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`}
+          href={`${publicConfig.BACKEND_URL}/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`}
           target="_blank"
         >
           {data.displayName}

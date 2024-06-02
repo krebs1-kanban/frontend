@@ -8,4 +8,7 @@ export const ROUTES = {
   PROJECTS: "/projects",
   BOARDS: "/boards",
   CARD: "/card",
+
+  PASSWORD_RESET_REQUEST: "/password-reset/request",
+  PASSWORD_RESET_CONFIRM: "/password-reset/confirm",
 };
