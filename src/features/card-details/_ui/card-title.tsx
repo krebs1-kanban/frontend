@@ -28,6 +28,7 @@ export function CardTitle({
       </h2>
       <Input
         className={cn("h-8 border-none truncate font-semibold text-xl p-0")}
+        autoFocus={false}
         type="text"
         value={name}
         onChange={(e) => setName(() => e.target.value)}

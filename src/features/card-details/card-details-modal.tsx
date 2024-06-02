@@ -33,10 +33,18 @@ export function CardDetailsModal({ cardId }: { cardId: string }) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className={cn("w-full h-full max-h-96")}>
+      <DialogContent
+        className={cn(
+          "min-w-[320px] w-full max-w-3xl",
+          "min-h-[386px] h-full max-h-[512px]",
+        )}
+      >
         <DialogHeader />
         <div
-          className={cn("max-w-[462px] h-full overflow-y-auto scrollbar p-2")}
+          className={cn(
+            "w-full max-w-full",
+            "h-full overflow-y-auto scrollbar p-2",
+          )}
         >
           <CardDetailsHeader
             cardData={cardDetails.cardData!}

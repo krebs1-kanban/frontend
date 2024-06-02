@@ -15,7 +15,7 @@ import { Edit2, Save } from "lucide-react";
 import React from "react";
 import { useUpdateTagForm } from "../_vm/use-update-tag-form";
 
-export function UpdateTagForm({ tag }: { tag: TagDto }) {
+export function UpdateTagForm({ tag, className }: { tag: TagDto, className?:string }) {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const { mutate, isPending } = useUpdateTagMutation();
   const { form } = useUpdateTagForm({
@@ -27,7 +27,12 @@ export function UpdateTagForm({ tag }: { tag: TagDto }) {
   };
 
   return (
-    <div className={cn("flex flex-row gap-x-2 items-start max-w-[350px] w-full")}>
+    <div
+      className={cn(
+        "flex flex-row gap-x-2 items-center ",
+        className,
+      )}
+    >
       <Form {...form}>
         <form
           className={cn("flex flex-row gap-x-2 items-start max-w-full w-full")}

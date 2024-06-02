@@ -1,11 +1,11 @@
 import { useDeleteTagMutation } from "@/entities/tag/_vm/queries";
 import { TagDto } from "@/shared/api/generated";
+import { Button } from "@/shared/ui/button";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { cn } from "@/shared/ui/utils";
 import { Trash2 } from "lucide-react";
 import { useChangeSelectTag } from "../_vm/use-select-tag";
 import { UpdateTagForm } from "./update-tag-form";
-import { Button } from '@/shared/ui/button'
 
 export function SelectTag({
   className,
@@ -23,22 +23,26 @@ export function SelectTag({
     execute({ cardId, tagId, current });
   };
   const handleDelete = () => {
-    mutate({id: tag.tag.id})
-  }
+    mutate({ id: tag.tag.id });
+  };
 
   return (
-    <div className={cn("flex flex-row gap-x-2 items-start max-w-[430px] w-full")}>
+    <div
+      className={cn("flex flex-row gap-x-2 items-start", "w-full max-w-full")}
+    >
       <Checkbox
-        className={cn("w-4 h-4 m-2")}
+        className={cn("w-4 h-4 m-2 flex-grow-0")}
         checked={tag.selected}
         onCheckedChange={(e) => {
           handleChange(tag.tag.id, tag.selected);
         }}
       />
-      <UpdateTagForm tag={tag.tag} />
+      <UpdateTagForm tag={tag.tag} className={cn("w-full max-w-full flex-1")} />
       <Button
         variant={"ghost"}
-        className={cn("font-medium text-sm leading-4 p-2 h-8 w-8")}
+        className={cn(
+          "font-medium text-sm leading-4 p-2 h-8 w-8 flex-grow-0",
+        )}
         disabled={isPending}
         onClick={handleDelete}
       >

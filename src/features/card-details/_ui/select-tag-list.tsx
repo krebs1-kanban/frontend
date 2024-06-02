@@ -12,7 +12,9 @@ export function SelectTagList({
   cardId: string;
 }) {
   return (
-    <div className={cn(className, "flex flex-col gap-y-2 max-w-full")}>
+    <div
+      className={cn(className, "flex flex-col gap-y-2", "w-full max-w-full")}
+    >
       {tags.map((tag) => (
         <SelectTag cardId={cardId} tag={tag} key={tag.tag.id} />
       ))}

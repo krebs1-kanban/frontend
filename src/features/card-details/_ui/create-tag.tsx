@@ -1,13 +1,6 @@
 import { CardDto, TagDto } from "@/shared/api/generated";
 import { Button } from "@/shared/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger,
-} from "@/shared/ui/dialog";
-import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
+import { Dialog, DialogContent, DialogTrigger } from "@/shared/ui/dialog";
 import { cn } from "@/shared/ui/utils";
 import { Plus } from "lucide-react";
 import React from "react";
@@ -53,20 +46,28 @@ export function CreateTag({
           <Plus className={cn("w-4 h-4")} />
         </Button>
       </DialogTrigger>
-      <DialogContent className={cn("max-h-[400px] rounded-lg")}>
-        <DialogHeader />
-        <ScrollArea className={cn("max-h-[350px] max-w-full")}>
-          <div className={cn("max-w-[462px] p-4 mb-5")}>
-            <CreateTagForm
-              cardId={cardData.id}
-              boardId={boardId}
-              className={cn("mb-5")}
-            />
-            <SelectTagList tags={tagsForDraw} cardId={cardData.id} />
-          </div>
-          <ScrollBar orientation="vertical" />
-        </ScrollArea>
-        <DialogFooter />
+      <DialogContent
+        className={cn(
+          "min-w-[320px] w-full max-w-96",
+          "max-h-[512px]",
+          "rounded-lg",
+        )}
+      >
+        <div
+          className={cn(
+            "w-full max-w-full",
+            "flex flex-col",
+            "p-1",
+            "overflow-y-auto scrollbar",
+          )}
+        >
+          <CreateTagForm
+            cardId={cardData.id}
+            boardId={boardId}
+            className={cn("w-full max-w-full", "mb-5")}
+          />
+          <SelectTagList tags={tagsForDraw} cardId={cardData.id} />
+        </div>
       </DialogContent>
     </Dialog>
   );
