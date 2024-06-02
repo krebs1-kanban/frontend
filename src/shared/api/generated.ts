@@ -11,6 +11,19 @@ export type BoardControllerGetByIdParams = {
   showArchived: boolean;
 };
 
+export interface UpdateAccountDto {
+  name: string | null;
+}
+
+export interface PasswordResetConfirmDto {
+  code: string;
+}
+
+export interface PasswordResetRequestDto {
+  email: string;
+  password: string;
+}
+
 export interface GetSessionInfoDto {
   email: string;
   exp: number;
@@ -640,12 +653,58 @@ export const authControllerGetSessionInfo = (
   );
 };
 
+export const authControllerPasswordResetReq = (
+  passwordResetRequestDto: BodyType<PasswordResetRequestDto>,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/api/auth/password-reset/request`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: passwordResetRequestDto,
+    },
+    options,
+  );
+};
+
+export const authControllerPasswordResetConfirm = (
+  passwordResetConfirmDto: BodyType<PasswordResetConfirmDto>,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/api/auth/password-reset/confirm`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: passwordResetConfirmDto,
+    },
+    options,
+  );
+};
+
 export const usersControllerGetProfileByUserId = (
   id: string,
   options?: SecondParameter<typeof createInstance>,
 ) => {
   return createInstance<ProfileDto>(
     { url: `/api/users/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const usersControllerUpdateProfile = (
+  id: string,
+  updateAccountDto: BodyType<UpdateAccountDto>,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProfileDto>(
+    {
+      url: `/api/users/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateAccountDto,
+    },
     options,
   );
 };
@@ -749,8 +808,17 @@ export type AuthControllerSignOutResult = NonNullable<
 export type AuthControllerGetSessionInfoResult = NonNullable<
   Awaited<ReturnType<typeof authControllerGetSessionInfo>>
 >;
+export type AuthControllerPasswordResetReqResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerPasswordResetReq>>
+>;
+export type AuthControllerPasswordResetConfirmResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerPasswordResetConfirm>>
+>;
 export type UsersControllerGetProfileByUserIdResult = NonNullable<
   Awaited<ReturnType<typeof usersControllerGetProfileByUserId>>
+>;
+export type UsersControllerUpdateProfileResult = NonNullable<
+  Awaited<ReturnType<typeof usersControllerUpdateProfile>>
 >;
 export type UsersControllerGetProfileResult = NonNullable<
   Awaited<ReturnType<typeof usersControllerGetProfile>>

@@ -81,12 +81,18 @@ export const useAttachFileMutation = () => {
     mutationFn: ({ id, files }: { id: string; files: FileList }) => {
       const formData = new FormData();
       Array.from(files).forEach((file) => {
-        formData.append("files", file);
+        const newFile = new File([file], encodeURI(file.name), {
+          type: file.type,
+        });
+        formData.append("files", newFile);
       });
 
-      const blobs = Array.from(files).map(
-        (file) => new Blob([file], { type: file.type }),
-      );
+      const blobs = Array.from(files).map((file) => {
+        const newFile = new File([file], encodeURI(file.name), {
+          type: file.type,
+        });
+        return new Blob([newFile], { type: file.type });
+      });
 
       return cardControllerAttachFile(
         id,

@@ -14,6 +14,15 @@ export function EmailPasswordSignInFooter() {
       >
         Создать аккаунт
       </Link>
+      <Link
+        href={ROUTES.PASSWORD_RESET_REQUEST}
+        className={cn(
+          "text-sm text-foreground/80",
+          "hover:text-foreground/100 hover:no-underline",
+        )}
+      >
+        Восстановить пароль
+      </Link>
     </div>
   );
 }
