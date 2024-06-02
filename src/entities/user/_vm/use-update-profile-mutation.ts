@@ -5,15 +5,13 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateProfileMutation = () => {
-  const mutation = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-      mutationFn: ({ id, ...other }: UpdateAccountDto & { id: string }) => {
-        return usersControllerUpdateProfile(id, other);
-      },
-      async onSettled() {
-        await queryClient.invalidateQueries({ queryKey: ["profile"] });
-      },
-    });
-  };
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...other }: UpdateAccountDto & { id: string }) => {
+      return usersControllerUpdateProfile(id, other);
+    },
+    async onSettled() {
+      await queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+  });
 };
