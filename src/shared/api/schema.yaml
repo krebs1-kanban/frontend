@@ -1021,9 +1021,10 @@ components:
       properties:
         name:
           type: string
-          example: List 1
-      required:
-        - name
+          nullable: true
+        isArchived:
+          type: boolean
+          nullable: true
     CreateCardDto:
       type: object
       properties:
@@ -1083,6 +1084,9 @@ components:
         dueDateTime:
           format: date-time
           type: string
+          nullable: true
+        isArchived:
+          type: boolean
           nullable: true
     CreateTagDto:
       type: object

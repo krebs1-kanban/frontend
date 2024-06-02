@@ -5,6 +5,8 @@ import { cn } from "@/shared/ui/utils";
 import { CardDetailsHeader } from "./_ui/card-details-header";
 import { CardDetailsMain } from "./_ui/card-details-main";
 import { useCardDetails } from "./_vm/use-card-details";
+import Link from 'next/link'
+import { ROUTES } from '@/shared/constants/routes'
 
 export function CardDetails({
   cardId,
@@ -34,6 +36,7 @@ export function CardDetails({
               cardData={cardDetails.cardData!}
               className={cn("mb-5")}
             />
+            <Link href={`${ROUTES.BOARDS}/${cardDetails.boardData?.id}`} className={cn("mb-5")}>К доске</Link>
             <div className={cn("w-full flex flex-row")}>
               <CardDetailsMain
                 cardData={cardDetails.cardData!}

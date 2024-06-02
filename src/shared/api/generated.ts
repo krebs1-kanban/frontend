@@ -59,6 +59,7 @@ export interface CreateTagDto {
 export interface UpdateCardDto {
   description?: string | null;
   dueDateTime?: string | null;
+  isArchived?: boolean | null;
   name?: string | null;
 }
 
@@ -82,7 +83,8 @@ export interface CreateCardDto {
 }
 
 export interface UpdateListDto {
-  name: string;
+  isArchived?: boolean | null;
+  name?: string | null;
 }
 
 export interface CreateListDto {

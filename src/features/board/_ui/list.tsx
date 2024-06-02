@@ -1,10 +1,11 @@
 import { DndCard } from "@/features/board/_ui/dnd-card";
 import { ListDto } from "@/shared/api/generated";
-import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
+import { Toggle } from "@/shared/ui/toggle";
 import { cn } from "@/shared/ui/utils";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
-import { MoreHorizontal } from "lucide-react";
+import { Archive } from "lucide-react";
+import { useToggleListArchive } from "../_vm/use-toggle-list-archive";
 import { CreateCardForm } from "./create-card-form";
 import { ListTitle } from "./list-title";
 
@@ -15,6 +16,8 @@ export function BoardList({
   listData: ListDto;
   index?: number;
 }) {
+  const { toggle, isToggleListPending } = useToggleListArchive(listData.id);
+
   return (
     <Draggable draggableId={listData.id} index={listData.index}>
       {(provided) => (
@@ -44,15 +47,17 @@ export function BoardList({
                     "mr-2 flex-grow flex-shrink basis-[min-content]",
                   )}
                 />
-                <Button
-                  variant="ghost"
+                <Toggle
                   className={cn(
                     "w-8 h-8 p-2 self-center flex-shrink-0 flex-grow-0 space-y-0",
                   )}
                   style={{ marginTop: "0" }}
+                  pressed={listData.isArchived}
+                  disabled={isToggleListPending}
+                  onPressedChange={toggle}
                 >
-                  <MoreHorizontal />
-                </Button>
+                  <Archive className={cn("w-4 h-4")} />
+                </Toggle>
               </CardHeader>
               <Droppable droppableId={listData.id} type="card">
                 {(provided) => (
