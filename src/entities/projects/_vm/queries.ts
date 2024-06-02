@@ -3,6 +3,7 @@ import {
   projectControllerCreate,
   projectControllerGet,
   projectControllerGetById,
+  projectControllerJoin,
   projectControllerUpdate,
   projectLinkControllerGenerate,
   projectLinkControllerRemove,
@@ -65,3 +66,13 @@ export const useDeleteInviteLink = () => {
     },
   });
 };
+
+export const useJoinToProject = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ link }: { link: string }) => projectControllerJoin(link),
+    async onSettled(data, err, vars, context) {
+      await queryClient.invalidateQueries({ queryKey: projectKey });
+    },
+  });
+}

@@ -1,3 +1,5 @@
+import { publicConfig } from "@/shared/config/public-config";
+import { ROUTES } from "@/shared/constants/routes";
 import { writeToClipboard } from "@/shared/lib/clipboard-fns";
 import { Button } from "@/shared/ui/button";
 import {
@@ -26,7 +28,9 @@ export function AddMember({
 
   const handleClick = () => {
     if (projectLink) {
-      writeToClipboard(projectLink);
+      writeToClipboard(
+        `${publicConfig.FRONTEND_URL}${ROUTES.PROJECT_JOIN}/${projectLink}`,
+      );
     } else {
       createMutate({ id: projectId });
     }
@@ -55,9 +59,7 @@ export function AddMember({
             <div className={cn("flex flex-col gap-1")}>
               <p className={cn("text-sm leading-4")}>Ссылка-приглашение</p>
               <Button
-                className={cn(
-                  "h-4 p-0 text-sm leading-4 justify-start",
-                )}
+                className={cn("h-4 p-0 text-sm leading-4 justify-start")}
                 onClick={handleClick}
                 variant="link"
               >

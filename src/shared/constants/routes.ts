@@ -11,4 +11,6 @@ export const ROUTES = {
 
   PASSWORD_RESET_REQUEST: "/password-reset/request",
   PASSWORD_RESET_CONFIRM: "/password-reset/confirm",
+
+  PROJECT_JOIN: "/projects/join",
 };
