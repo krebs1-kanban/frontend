@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader } from "@/shared/ui/dialog";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { CardDetailsHeader } from "./_ui/card-details-header";
 import { CardDetailsMain } from "./_ui/card-details-main";
 import { useCardDetails } from "./_vm/use-card-details";
@@ -15,6 +15,10 @@ export function CardDetailsModal({ cardId }: { cardId: string }) {
   const router = useRouter();
 
   const cardDetails = useCardDetails(cardId);
+
+  useEffect(() => {
+    if (cardDetails.cardData?.name) document.title = cardDetails.cardData?.name;
+  }, [cardDetails.cardData?.name]);
 
   const isLoading = cardDetails.cardIsPending || cardDetails.boardIsPending;
   const isError = cardDetails.cardIsError || cardDetails.boardIsError;

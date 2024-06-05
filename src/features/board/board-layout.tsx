@@ -1,6 +1,7 @@
 "use client";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { cn } from "@/shared/ui/utils";
+import { useEffect } from "react";
 import { BoardHeader } from "./_ui/board-header";
 import { BoardMain } from "./_ui/board-main";
 import { useGetBoardById } from "./_vm/use-get-board-by-id";
@@ -11,6 +12,10 @@ export function BoardLayout({ boardId }: { boardId: string }) {
       boardId,
       params: { showArchived: false },
     });
+
+  useEffect(() => {
+    if (data?.name) document.title = data?.name!;
+  }, [data?.name]);
 
   if (isPending) {
     return <FullPageSpinner isLoading aria-label="Загрузка доски" />;
