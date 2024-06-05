@@ -881,6 +881,14 @@ components:
         dueDateTime:
           format: date-time
           type: string
+        cover:
+          type: string
+        status:
+          type: string
+          enum:
+            - INCOMPLETE
+            - IN_PROGRESS
+            - COMPLETE
         isArchived:
           type: boolean
           example: false
@@ -900,6 +908,8 @@ components:
         - name
         - description
         - dueDateTime
+        - cover
+        - status
         - isArchived
         - index
         - tags
@@ -1084,6 +1094,16 @@ components:
         dueDateTime:
           format: date-time
           type: string
+          nullable: true
+        cover:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum:
+            - INCOMPLETE
+            - IN_PROGRESS
+            - COMPLETE
           nullable: true
         isArchived:
           type: boolean

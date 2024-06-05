@@ -24,6 +24,7 @@ export function CardDetailsModal({ cardId }: { cardId: string }) {
   const isError = cardDetails.cardIsError || cardDetails.boardIsError;
 
   const handleOpenChange = (val: boolean) => {
+    setOpen(val);
     if (!val) router.replace(`${ROUTES.BOARDS}/${cardDetails.boardData?.id}`);
   };
 

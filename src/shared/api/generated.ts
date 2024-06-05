@@ -56,11 +56,24 @@ export interface CreateTagDto {
   name: string;
 }
 
+export type UpdateCardDtoStatus =
+  | (typeof UpdateCardDtoStatus)[keyof typeof UpdateCardDtoStatus]
+  | null;
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateCardDtoStatus = {
+  INCOMPLETE: "INCOMPLETE",
+  IN_PROGRESS: "IN_PROGRESS",
+  COMPLETE: "COMPLETE",
+} as const;
+
 export interface UpdateCardDto {
+  cover?: string | null;
   description?: string | null;
   dueDateTime?: string | null;
   isArchived?: boolean | null;
   name?: string | null;
+  status?: UpdateCardDtoStatus;
 }
 
 export interface AddRemoveTagDto {
@@ -112,6 +125,33 @@ export interface MoveListDto {
   toIndex: number;
 }
 
+export interface ListDto {
+  boardId: string;
+  cards: CardDto[];
+  id: string;
+  index: number;
+  isArchived: boolean;
+  name: string;
+}
+
+export interface BoardWithDetailsDto {
+  id: string;
+  isArchived: boolean;
+  lists: ListDto[];
+  name: string;
+  projectId: string;
+  tags: TagDto[];
+}
+
+export type CardDtoStatus = (typeof CardDtoStatus)[keyof typeof CardDtoStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CardDtoStatus = {
+  INCOMPLETE: "INCOMPLETE",
+  IN_PROGRESS: "IN_PROGRESS",
+  COMPLETE: "COMPLETE",
+} as const;
+
 export interface FileDto {
   displayName?: string | null;
   extension: string;
@@ -129,16 +169,8 @@ export interface TagDto {
   name: string;
 }
 
-export interface BoardWithDetailsDto {
-  id: string;
-  isArchived: boolean;
-  lists: ListDto[];
-  name: string;
-  projectId: string;
-  tags: TagDto[];
-}
-
 export interface CardDto {
+  cover: string;
   description: string | null;
   dueDateTime: string;
   files: FileDto[];
@@ -147,16 +179,8 @@ export interface CardDto {
   isArchived: boolean;
   listId: string;
   name: string;
+  status: CardDtoStatus;
   tags: TagDto[];
-}
-
-export interface ListDto {
-  boardId: string;
-  cards: CardDto[];
-  id: string;
-  index: number;
-  isArchived: boolean;
-  name: string;
 }
 
 export interface CreateBoardDto {

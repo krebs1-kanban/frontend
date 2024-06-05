@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier -w .",
-    "api:download": "wget http://localhost:4200/api-yaml -O ./src/shared/api/schema.yaml",
+    "api:download": "wget http://backend:4200/api-yaml -O ./src/shared/api/schema.yaml",
     "api:generate": "orval"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toggle": "^1.0.3",
@@ -50,7 +51,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "^14.2.2",
     "eslint-prettier-config": "^1.0.1",
     "orval": "^6.25.0",
     "postcss": "^8",

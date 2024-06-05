@@ -20,7 +20,7 @@ export function CardDescription({
 
   const { isToggleCardPending, toggle } = useToggleCardArchive(cardData.id);
 
-  if (!(hasDescription || hasDate || hasAttachments)) return null;
+  //if (!(hasDescription || hasDate || hasAttachments)) return null;
 
   return (
     <div

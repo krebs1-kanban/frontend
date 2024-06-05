@@ -12,6 +12,11 @@ export function CardDetailsHeader({
   return (
     <div className={cn(className)}>
       <CardTitle cardData={cardData} />
+      {cardData.isArchived && (
+        <span className={cn("text-xs font-normal text-foreground/60 mt-2")}>
+          Карточка заархивирована
+        </span>
+      )}
     </div>
   );
 }

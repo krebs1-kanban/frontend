@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 import { cn } from "@/shared/ui/utils";
 import Link from "next/link";
 import { CardDescription } from "./_ui/card-description";
+import { ExecutionStatus } from "./_ui/exec-status";
 import { TagBadgeList } from "./_ui/tag-badge-list";
 
 export function BoardCard({
@@ -14,22 +15,35 @@ export function BoardCard({
   className?: string;
 }) {
   return (
-    <Link href={`${ROUTES.CARD}/${cardData.id}`}>
-      <Card
-        className={cn(
-          "px-3 pb-1 pt-2",
-          cardData.isArchived && "border-destructive",
-        )}
+    <Card
+      className={cn("pb-1 pt-0", cardData.isArchived && "border-destructive")}
+    >
+      <div
+        className={cn("rounded-t-lg flex flex-col px-3 py-2")}
+        style={{
+          height: cardData.cover ? "3rem" : "1.75rem",
+          backgroundColor: cardData.cover ? cardData.cover : "transparent",
+        }}
       >
+        <div className={cn("w-full flex justify-end")}>
+          <ExecutionStatus status={cardData.status} className={cn("w-3 h-3")} />
+        </div>
+      </div>
+      <div className={cn("px-3 pt-2")}>
         <CardHeader className={cn("p-0 w-full")}>
           <TagBadgeList className={cn("mb-1")} tags={cardData.tags} />
-          <h5
-            className={cn(
-              "w-full truncate text-sm font-semibold text-foreground/80 mb-1",
-            )}
+          <Link
+            href={`${ROUTES.CARD}/${cardData.id}`}
+            className={cn(className)}
           >
-            {cardData.name}
-          </h5>
+            <h5
+              className={cn(
+                "w-full truncate text-sm font-semibold text-foreground/80 mb-1",
+              )}
+            >
+              {cardData.name}
+            </h5>
+          </Link>
         </CardHeader>
         <CardContent className={cn("p-0")}>
           <CardDescription
@@ -37,7 +51,7 @@ export function BoardCard({
             className={cn("mt-2 text-foreground/80")}
           />
         </CardContent>
-      </Card>
-    </Link>
+      </div>
+    </Card>
   );
 }
