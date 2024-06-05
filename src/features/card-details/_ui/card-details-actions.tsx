@@ -4,9 +4,11 @@ import { buttonVariants } from "@/shared/ui/button";
 import { cn } from "@/shared/ui/utils";
 import Link from "next/link";
 import { useAddCover } from "../_vm/use-add-cover";
+import { useAddDueDate } from "../_vm/use-add-due-date";
 import { useArchiveCard } from "../_vm/use-archive-card";
 import { useChangeStatus } from "../_vm/use-change-status";
 import { AddCover } from "./add-cover";
+import { AddDueDate } from "./add-due-date";
 import { ChangeStatus } from "./change-status";
 import { ToggleArchive } from "./toggle-archive";
 
@@ -22,6 +24,7 @@ export function CardDetailsActions({
   const { addCover, isPending: addCoverIsPending } = useAddCover();
   const { archive, isPending: archiveCardIsPending } = useArchiveCard();
   const { changeStatus, isPending: changeStatusIsPending } = useChangeStatus();
+  const { addDueDate, isPending: addDueDateIsPending } = useAddDueDate();
 
   const handleCoverChange = (cover: string) => {
     addCover({ id: cardData.id, cover });
@@ -31,6 +34,12 @@ export function CardDetailsActions({
   };
   const handleStatusChange = (val: CardDtoStatus) => {
     changeStatus({ id: cardData.id, status: val });
+  };
+  const handleDueDateChange = (date: Date) => {
+    addDueDate({
+      id: cardData.id,
+      dueDateTime: date.toISOString(),
+    });
   };
 
   return (
@@ -56,6 +65,13 @@ export function CardDetailsActions({
           status={cardData.status}
           onStatusChange={handleStatusChange}
           disabled={changeStatusIsPending}
+        />
+        <AddDueDate
+          date={
+            cardData.dueDateTime ? new Date(cardData.dueDateTime) : new Date()
+          }
+          onChange={handleDueDateChange}
+          disabled={addDueDateIsPending}
         />
       </div>
     </div>
