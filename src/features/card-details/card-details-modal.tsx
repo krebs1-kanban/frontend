@@ -1,11 +1,12 @@
 "use client";
 
 import { ROUTES } from "@/shared/constants/routes";
-import { Dialog, DialogContent, DialogHeader } from "@/shared/ui/dialog";
+import { Dialog, DialogContent } from "@/shared/ui/dialog";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { CardDetailsActions } from "./_ui/card-details-actions";
 import { CardDetailsHeader } from "./_ui/card-details-header";
 import { CardDetailsMain } from "./_ui/card-details-main";
 import { useCardDetails } from "./_vm/use-card-details";
@@ -44,15 +45,19 @@ export function CardDetailsModal({ cardId }: { cardId: string }) {
           "min-h-[386px] h-full max-h-[512px]",
         )}
       >
-        <DialogHeader />
         <div
           className={cn(
             "w-full max-w-full",
-            "h-full overflow-y-auto scrollbar p-2",
+            "h-full overflow-y-auto scrollbar p-2 mt-5",
           )}
         >
           <CardDetailsHeader
             cardData={cardDetails.cardData!}
+            className={cn("mb-5")}
+          />
+          <CardDetailsActions
+            cardData={cardDetails.cardData!}
+            boardId={cardDetails.boardData?.id!}
             className={cn("mb-5")}
           />
           <CardDetailsMain

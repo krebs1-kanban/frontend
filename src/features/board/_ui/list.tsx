@@ -59,7 +59,11 @@ export function BoardList({
                   <Archive className={cn("w-4 h-4")} />
                 </Toggle>
               </CardHeader>
-              <Droppable droppableId={listData.id} type="card">
+              <Droppable
+                droppableId={listData.id}
+                type="card"
+                direction="vertical"
+              >
                 {(provided) => (
                   <CardContent
                     {...provided.droppableProps}

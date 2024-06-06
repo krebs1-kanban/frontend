@@ -29,9 +29,9 @@ export function BoardCard({
           <ExecutionStatus status={cardData.status} className={cn("w-3 h-3")} />
         </div>
       </div>
-      <div className={cn("px-3 pt-2")}>
+      <div className={cn("px-3")}>
         <CardHeader className={cn("p-0 w-full")}>
-          <TagBadgeList className={cn("mb-1")} tags={cardData.tags} />
+          <TagBadgeList className={cn("mb-1 mt-2")} tags={cardData.tags} />
           <Link
             href={`${ROUTES.CARD}/${cardData.id}`}
             className={cn(className)}

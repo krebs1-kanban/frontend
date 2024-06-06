@@ -1,3 +1,4 @@
+import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
@@ -7,10 +8,12 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
+import { SelectColor } from "@/shared/ui/select-color";
 import { cn } from "@/shared/ui/utils";
+import { useState } from "react";
 import { useCreateAttachTag } from "../_vm/use-create-attach-tag";
 import { useCreateTagForm } from "../_vm/use-create-tag-form";
-import { Button } from '@/shared/ui/button'
 
 export function CreateTagForm({
   className,
@@ -23,6 +26,8 @@ export function CreateTagForm({
 }) {
   const { form } = useCreateTagForm();
   const { execute } = useCreateAttachTag();
+
+  const [selectColorOpen, setSelectColorOpen] = useState<boolean>(false);
 
   return (
     <Form {...form}>
@@ -61,9 +66,31 @@ export function CreateTagForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel className="sr-only">Цветовой код</FormLabel>
-              <FormControl>
-                <Input placeholder="Цветовой код" type="text" {...field} />
-              </FormControl>
+              <Popover open={selectColorOpen} onOpenChange={setSelectColorOpen}>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className={cn("w-full")}
+                      style={{
+                        backgroundColor: field.value ?? "transparent",
+                      }}
+                    >
+                      {field.value ? field.value : "Выбрать цвет"}
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <SelectColor
+                    color={field.value!}
+                    onChange={(color) => {
+                      form.setValue("color", color);
+                      setSelectColorOpen(false);
+                    }}
+                  />
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
