@@ -30,9 +30,9 @@ export function AddDueDate({
         <Calendar
           mode="single"
           selected={date}
-          onSelect={(date: Date) => {
+          onSelect={(date: Date | undefined) => {
             setOpen(false);
-            onChange(date);
+            onChange(date!);
           }}
           disabled={(date: Date) => date < new Date()}
           initialFocus
