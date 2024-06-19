@@ -1,13 +1,12 @@
-import { useDetachFileMutation } from "@/entities/card/_vm/queries";
-import { apiInstance } from "@/shared/api/api-instance";
-import { FileDto } from "@/shared/api/generated";
-import { publicConfig } from "@/shared/config/public-config";
-import { MAIN } from "@/shared/constants/main";
-import { writeToClipboard } from "@/shared/lib/clipboard-fns";
-import { Button } from "@/shared/ui/button";
-import { cn } from "@/shared/ui/utils";
-import Link from "next/link";
-import urlJoin from "url-join";
+import { useDetachFileMutation } from "@/entities/card/_vm/queries"
+import { apiInstance } from "@/shared/api/api-instance"
+import { FileDto } from "@/shared/api/generated"
+import { publicConfig } from "@/shared/config/public-config"
+import { writeToClipboard } from "@/shared/lib/clipboard-fns"
+import { Button } from "@/shared/ui/button"
+import { cn } from "@/shared/ui/utils"
+import Link from "next/link"
+import urlJoin from "url-join"
 
 const AttachmentDownloadURL = (fileName: string) => {
   const url = urlJoin(
@@ -69,7 +68,7 @@ export function CardAttachment({
     <div className={cn("flex flex-col gap-y-2 p-2")}>
       <h4 className={cn("text-sm font-bold")}>
         <Link
-          href={`${publicConfig.BACKEND_URL}/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`}
+          href={AttachmentCopyUrl(data.name)}
           target="_blank"
         >
           {data.displayName}
