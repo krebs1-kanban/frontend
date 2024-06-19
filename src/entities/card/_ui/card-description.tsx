@@ -1,12 +1,12 @@
-import { CardDto } from "@/shared/api/generated";
-import { Toggle } from "@/shared/ui/toggle";
-import { cn } from "@/shared/ui/utils";
-import { Archive } from "lucide-react";
-import { useToggleCardArchive } from "../_vm/use-toggle-card-archieve";
-import { HasAttachments } from "./has-attachments";
-import { HasDate } from "./has-date";
-import { HasDescription } from "./has-description";
-import { HasExecutors } from "./has-executors";
+import { CardDto } from "@/shared/api/generated"
+import { Toggle } from "@/shared/ui/toggle"
+import { cn } from "@/shared/ui/utils"
+import { Archive } from "lucide-react"
+import { useToggleCardArchive } from "../_vm/use-toggle-card-archieve"
+import { HasAttachments } from "./has-attachments"
+import { HasDate } from "./has-date"
+import { HasDescription } from "./has-description"
+import { HasExecutors } from "./has-executors"
 
 export function CardDescription({
   cardData,
@@ -25,6 +25,8 @@ export function CardDescription({
   const { isToggleCardPending, toggle } = useToggleCardArchive(cardData.id);
 
   //if (!(hasDescription || hasDate || hasAttachments)) return null;
+
+  console.log(canArchive)
 
   return (
     <div

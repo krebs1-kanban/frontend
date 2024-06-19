@@ -1,13 +1,13 @@
-import { DndCard } from "@/features/board/_ui/dnd-card";
-import { ListDto } from "@/shared/api/generated";
-import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
-import { Toggle } from "@/shared/ui/toggle";
-import { cn } from "@/shared/ui/utils";
-import { Draggable, Droppable } from "@hello-pangea/dnd";
-import { Archive } from "lucide-react";
-import { useToggleListArchive } from "../_vm/use-toggle-list-archive";
-import { CreateCardForm } from "./create-card-form";
-import { ListTitle } from "./list-title";
+import { DndCard } from "@/features/board/_ui/dnd-card"
+import { ListDto } from "@/shared/api/generated"
+import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card"
+import { Toggle } from "@/shared/ui/toggle"
+import { cn } from "@/shared/ui/utils"
+import { Draggable, Droppable } from "@hello-pangea/dnd"
+import { Archive } from "lucide-react"
+import { useToggleListArchive } from "../_vm/use-toggle-list-archive"
+import { CreateCardForm } from "./create-card-form"
+import { ListTitle } from "./list-title"
 
 export function BoardList({
   listData,
@@ -85,7 +85,7 @@ export function BoardList({
                       className={cn("list-none flex flex-col w-full gap-y-2")}
                     >
                       {listData.cards.map((card, index) => (
-                        <DndCard cardData={card} index={index} key={card.id} />
+                        <DndCard cardData={card} index={index} key={card.id} canArchive={canArchiveCard} />
                       ))}
                       {provided.placeholder}
                     </ol>
