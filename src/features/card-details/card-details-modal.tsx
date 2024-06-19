@@ -21,19 +21,16 @@ export function CardDetailsModal({ cardId }: { cardId: string }) {
     if (cardDetails.cardData?.name) document.title = cardDetails.cardData?.name;
   }, [cardDetails.cardData?.name]);
 
-  const isLoading = cardDetails.cardIsPending || cardDetails.boardIsPending;
-  const isError = cardDetails.cardIsError || cardDetails.boardIsError;
-
   const handleOpenChange = (val: boolean) => {
     setOpen(val);
     if (!val) router.replace(`${ROUTES.BOARDS}/${cardDetails.boardData?.id}`);
   };
 
-  if (isLoading) {
+  if (cardDetails.isPending) {
     return <FullPageSpinner isLoading={true} />;
   }
 
-  if (isError) {
+  if (cardDetails.isError) {
     return <h2>Ошибка при загрузке</h2>;
   }
 
@@ -56,6 +53,7 @@ export function CardDetailsModal({ cardId }: { cardId: string }) {
             className={cn("mb-5")}
           />
           <CardDetailsActions
+            members={cardDetails.membersData!}
             cardData={cardDetails.cardData!}
             boardId={cardDetails.boardData?.id!}
             className={cn("mb-5")}
