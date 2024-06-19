@@ -1,4 +1,8 @@
-import { CardDto, CardDtoStatus } from "@/shared/api/generated";
+import {
+  CardDto,
+  CardDtoStatus,
+  ProjectMemberWithDetailsDto,
+} from "@/shared/api/generated";
 import { ROUTES } from "@/shared/constants/routes";
 import { buttonVariants } from "@/shared/ui/button";
 import { cn } from "@/shared/ui/utils";
@@ -10,16 +14,19 @@ import { useChangeStatus } from "../_vm/use-change-status";
 import { AddCover } from "./add-cover";
 import { AddDueDate } from "./add-due-date";
 import { ChangeStatus } from "./change-status";
+import { SelectExecutor } from "./select-executor";
 import { ToggleArchive } from "./toggle-archive";
 
 export function CardDetailsActions({
   className,
   cardData,
   boardId,
+  members,
 }: {
   className?: string;
   cardData: CardDto;
   boardId: string;
+  members: ProjectMemberWithDetailsDto[];
 }) {
   const { addCover, isPending: addCoverIsPending } = useAddCover();
   const { archive, isPending: archiveCardIsPending } = useArchiveCard();
@@ -67,11 +74,14 @@ export function CardDetailsActions({
           disabled={changeStatusIsPending}
         />
         <AddDueDate
-          date={
-            cardData.dueDateTime ? new Date(cardData.dueDateTime) : new Date()
-          }
+          date={cardData.dueDateTime ? new Date(cardData.dueDateTime) : null}
           onChange={handleDueDateChange}
           disabled={addDueDateIsPending}
+        />
+        <SelectExecutor
+          members={members}
+          executors={cardData.user_ids}
+          cardId={cardData.id}
         />
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useGetBoardByCardIdQuery } from "@/entities/board";
 import { useGetCardByIdQuery } from "@/entities/card";
+import { useMembersByProjectIdQuery } from "@/entities/project-member/_vm/use-members-by-project-id-query";
 
 export const useCardDetails = (cardId: string) => {
   const {
@@ -12,13 +13,17 @@ export const useCardDetails = (cardId: string) => {
     isPending: boardIsPending,
     isError: boardIsError,
   } = useGetBoardByCardIdQuery(cardId);
+  const {
+    data: membersData,
+    isPending: isMembersPending,
+    isError: isMembersError,
+  } = useMembersByProjectIdQuery(boardData?.projectId!);
 
   return {
     cardData,
-    cardIsPending,
-    cardIsError,
     boardData,
-    boardIsPending,
-    boardIsError,
+    membersData,
+    isPending: cardIsPending || boardIsPending || isMembersPending,
+    isError: cardIsError || boardIsError || isMembersError,
   };
 };

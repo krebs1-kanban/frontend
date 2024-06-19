@@ -6,10 +6,12 @@ import { CreateBoard } from "./create-board";
 export function BoardsList({
   projectId,
   boards,
+  canCreateBoard = false,
   className,
 }: {
   projectId: string;
   boards: BoardDto[];
+  canCreateBoard?: boolean;
   className?: string;
 }) {
   return (
@@ -22,7 +24,7 @@ export function BoardsList({
           <BoardItem key={item.id} board={item} />
         </li>
       ))}
-      <CreateBoard projectId={projectId} />
+      {canCreateBoard && <CreateBoard projectId={projectId} />}
     </ul>
   );
 }

@@ -22,15 +22,12 @@ export function CardDetails({
       document.title = cardDetails.cardData?.name!;
   }, [cardDetails.cardData?.name]);
 
-  const isLoading = cardDetails.cardIsPending || cardDetails.boardIsPending;
-  const isError = cardDetails.cardIsError || cardDetails.boardIsError;
-
-  if (isError) {
+  if (cardDetails.isError) {
     return <h2>Ошибка при загрузке</h2>;
   }
 
-  if (isLoading) {
-    return <FullPageSpinner isLoading={isLoading} />;
+  if (cardDetails.isPending) {
+    return <FullPageSpinner isLoading={true} />;
   }
 
   return (
@@ -50,6 +47,7 @@ export function CardDetails({
           <CardDetailsActions
             cardData={cardDetails.cardData!}
             boardId={cardDetails.boardData?.id!}
+            members={cardDetails.membersData!}
             className={cn("mb-5")}
           />
           <CardDetailsMain

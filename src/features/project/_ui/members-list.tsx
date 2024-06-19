@@ -7,9 +7,13 @@ import { Member } from "./member";
 export function MembersList({
   members,
   className,
+  canControl = false,
+  projectId,
 }: {
   members: ProjectMemberWithDetailsDto[];
   className?: string;
+  canControl?: boolean;
+  projectId: string;
 }) {
   const profileQuery = useProfileQuery();
 
@@ -25,9 +29,11 @@ export function MembersList({
     <div className={cn("flex items-center flex-row flex-wrap gap-2")}>
       {members.map((member) => (
         <Member
+          projectId={projectId}
           member={member}
           key={member.profile.userId}
           isYou={member.profile.userId === profileQuery.data.userId}
+          canControl={canControl}
         />
       ))}
     </div>

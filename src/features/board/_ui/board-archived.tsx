@@ -7,16 +7,18 @@ export function BoardArchived({
   className,
   boardId,
   isArchived,
+  canArchive = false,
 }: {
   className?: string;
   boardId: string;
   isArchived: boolean;
+  canArchive?: boolean;
 }) {
   const { toggle, isPending } = useBoardArchived({ boardId });
 
   return (
     <Toggle
-      disabled={isPending}
+      disabled={isPending || !canArchive}
       className={cn("h-8 p-1.5 gap-x-2 text-sm font-normal")}
       pressed={isArchived}
       onPressedChange={toggle}

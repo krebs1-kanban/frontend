@@ -6,9 +6,11 @@ import { BoardCard } from "../../../entities/card/board-card";
 export function DndCard({
   cardData,
   index,
+  canArchive = false,
 }: {
   cardData: CardDto;
   index?: number;
+  canArchive?: boolean;
 }) {
   return (
     <Draggable draggableId={cardData.id} index={cardData.index!}>
@@ -20,7 +22,7 @@ export function DndCard({
           role="button"
           className={cn("list-none")}
         >
-          <BoardCard cardData={cardData} />
+          <BoardCard cardData={cardData} canArchive={canArchive} />
         </li>
       )}
     </Draggable>

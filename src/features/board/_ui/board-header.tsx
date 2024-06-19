@@ -14,11 +14,15 @@ export function BoardHeader({
   boardData,
   togglesDefaultValues,
   onShowArchievedToggle,
+  canArchive = false,
+  canRename = false,
 }: {
   className?: string;
   boardData: BoardDto;
   togglesDefaultValues: togglesDefaultValues;
   onShowArchievedToggle: (val: boolean) => void;
+  canArchive?: boolean;
+  canRename?: boolean;
 }) {
   return (
     <div
@@ -27,8 +31,16 @@ export function BoardHeader({
         className,
       )}
     >
-      <div className={cn("flex flex-row flex-wrap items-center gap-x-4 max-w-full")}>
-        <BoardTitle boardId={boardData.id} title={boardData.name} />
+      <div
+        className={cn(
+          "flex flex-row flex-wrap items-center gap-x-4 max-w-full",
+        )}
+      >
+        <BoardTitle
+          boardId={boardData.id}
+          title={boardData.name}
+          canRename={canRename}
+        />
         {boardData.isArchived && (
           <span className={cn("text-xs font-normal text-foreground/60 px-2")}>
             Доска заархивирована
@@ -44,7 +56,7 @@ export function BoardHeader({
         >
           <Archive className={cn("w-5 h-5")} />
         </Toggle>
-        <BoardActions boardData={boardData} />
+        <BoardActions boardData={boardData} canArchive={canArchive} />
       </div>
     </div>
   );

@@ -1,12 +1,34 @@
-import { useDetachFileMutation } from "@/entities/card/_vm/queries"
-import { apiInstance } from "@/shared/api/api-instance"
-import { FileDto } from "@/shared/api/generated"
-import { publicConfig } from '@/shared/config/public-config'
-import { MAIN } from "@/shared/constants/main"
-import { writeToClipboard } from "@/shared/lib/clipboard-fns"
-import { Button } from "@/shared/ui/button"
-import { cn } from "@/shared/ui/utils"
-import Link from "next/link"
+import { useDetachFileMutation } from "@/entities/card/_vm/queries";
+import { apiInstance } from "@/shared/api/api-instance";
+import { FileDto } from "@/shared/api/generated";
+import { publicConfig } from "@/shared/config/public-config";
+import { MAIN } from "@/shared/constants/main";
+import { writeToClipboard } from "@/shared/lib/clipboard-fns";
+import { Button } from "@/shared/ui/button";
+import { cn } from "@/shared/ui/utils";
+import Link from "next/link";
+import urlJoin from "url-join";
+
+const AttachmentDownloadURL = (fileName: string) => {
+  const url = urlJoin(
+    publicConfig.STATIC_FILES_URL_SEGMENT,
+    publicConfig.PROJECT_ATTACHMENTS_URL_SEGMENT,
+    fileName,
+  );
+  console.log(url);
+  return url;
+};
+
+const AttachmentCopyUrl = (fileName: string) => {
+  const url = urlJoin(
+    publicConfig.BACKEND_URL,
+    publicConfig.STATIC_FILES_URL_SEGMENT,
+    publicConfig.PROJECT_ATTACHMENTS_URL_SEGMENT,
+    fileName,
+  );
+  console.log(url);
+  return url;
+};
 
 export function CardAttachment({
   className,
@@ -26,7 +48,7 @@ export function CardAttachment({
 
   const handleDownload = () => {
     apiInstance
-      .get(`/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`, {
+      .get(AttachmentDownloadURL(data.name), {
         responseType: "blob",
       })
       .then((res) => {
@@ -40,9 +62,7 @@ export function CardAttachment({
   };
 
   const handleCopy = () => {
-    writeToClipboard(
-      `${publicConfig.BACKEND_URL}/${MAIN.PROJECT_ATTACHMENTS_PATH_SEGMENT}/${data.name}`,
-    );
+    writeToClipboard(AttachmentCopyUrl(data.name));
   };
 
   return (

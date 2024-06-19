@@ -15,9 +15,11 @@ import { BoardArchived } from "./board-archived";
 export function BoardActions({
   className,
   boardData,
+  canArchive = false,
 }: {
   className?: string;
   boardData: BoardDto;
+  canArchive?: boolean;
 }) {
   return (
     <DropdownMenu>
@@ -33,6 +35,7 @@ export function BoardActions({
           <BoardArchived
             boardId={boardData.id}
             isArchived={boardData.isArchived}
+            canArchive={canArchive}
           />
         </DropdownMenuItem>
       </DropdownMenuContent>

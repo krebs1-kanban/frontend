@@ -6,10 +6,12 @@ import { useRename } from "../_vm/use-rename";
 export function ProjectTitle({
   projectId,
   projectName,
+  canEdit = false,
   className,
 }: {
   projectId: string;
   projectName: string;
+  canEdit?: boolean;
   className?: string;
 }) {
   const [newName, setNewName] = React.useState<string>(projectName);
@@ -19,6 +21,17 @@ export function ProjectTitle({
     if (newName === "") setNewName(() => projectName);
     else rename({ projectId, name: newName });
   };
+
+  if (!canEdit)
+    return (
+      <h1
+        className={cn(
+          "p-0 font-bold text-lg leading-8 border-none max-w-full w-min h-8 px-2 truncate",
+        )}
+      >
+        {projectName}
+      </h1>
+    );
 
   return (
     <div className={cn("max-w-full w-full", className)}>

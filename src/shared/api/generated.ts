@@ -88,6 +88,12 @@ export interface AttachFilesDto {
   files: Blob[];
 }
 
+export interface SetExecutorDto {
+  cardId: string;
+  execute: boolean;
+  userId: string;
+}
+
 export interface CreateCardDto {
   description?: string | null;
   dueDateTime?: string | null;
@@ -181,11 +187,47 @@ export interface CardDto {
   name: string;
   status: CardDtoStatus;
   tags: TagDto[];
+  user_ids: string[];
 }
 
 export interface CreateBoardDto {
   name: string;
   projectId: string;
+}
+
+export interface DeleteMemberDto {
+  projectId: string;
+  userId: string;
+}
+
+export type ChangeRoleDtoRole =
+  (typeof ChangeRoleDtoRole)[keyof typeof ChangeRoleDtoRole];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ChangeRoleDtoRole = {
+  OBSERVER: "OBSERVER",
+  MEMBER: "MEMBER",
+  ADMIN: "ADMIN",
+} as const;
+
+export interface ChangeRoleDto {
+  projectId: string;
+  role: ChangeRoleDtoRole;
+  userId: string;
+}
+
+export type ProjectMemberRoleDtoRole =
+  (typeof ProjectMemberRoleDtoRole)[keyof typeof ProjectMemberRoleDtoRole];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ProjectMemberRoleDtoRole = {
+  OBSERVER: "OBSERVER",
+  MEMBER: "MEMBER",
+  ADMIN: "ADMIN",
+} as const;
+
+export interface ProjectMemberRoleDto {
+  role: ProjectMemberRoleDtoRole;
 }
 
 export type UpdateProjectDtoDefaultRole =
@@ -359,6 +401,86 @@ export const projectLinkControllerRemove = (
   );
 };
 
+export const projectMemberControllerGetMembersByProjectId = (
+  projectId: string,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProjectMemberWithDetailsDto[]>(
+    { url: `/api/project-member/all/${projectId}`, method: "GET" },
+    options,
+  );
+};
+
+export const projectMemberControllerGetRoleByProjectId = (
+  projectId: string,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProjectMemberRoleDto>(
+    { url: `/api/project-member/project/${projectId}`, method: "GET" },
+    options,
+  );
+};
+
+export const projectMemberControllerGetRoleByBoardId = (
+  boardId: string,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProjectMemberRoleDto>(
+    { url: `/api/project-member/board/${boardId}`, method: "GET" },
+    options,
+  );
+};
+
+export const projectMemberControllerGetRoleByListId = (
+  listId: string,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProjectMemberRoleDto>(
+    { url: `/api/project-member/list/${listId}`, method: "GET" },
+    options,
+  );
+};
+
+export const projectMemberControllerGetRoleByCardId = (
+  cardId: string,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProjectMemberRoleDto>(
+    { url: `/api/project-member/card/${cardId}`, method: "GET" },
+    options,
+  );
+};
+
+export const projectMemberControllerChangeRole = (
+  changeRoleDto: BodyType<ChangeRoleDto>,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<ProjectMemberDto>(
+    {
+      url: `/api/project-member/change-role`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: changeRoleDto,
+    },
+    options,
+  );
+};
+
+export const projectMemberControllerDeleteMember = (
+  deleteMemberDto: BodyType<DeleteMemberDto>,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/api/project-member`,
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      data: deleteMemberDto,
+    },
+    options,
+  );
+};
+
 export const boardControllerCreate = (
   createBoardDto: BodyType<CreateBoardDto>,
   options?: SecondParameter<typeof createInstance>,
@@ -482,6 +604,21 @@ export const cardControllerCreate = (
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: createCardDto,
+    },
+    options,
+  );
+};
+
+export const cardControllerSetExecutor = (
+  setExecutorDto: BodyType<SetExecutorDto>,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/api/cards/set-executor`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: setExecutorDto,
     },
     options,
   );
@@ -765,6 +902,27 @@ export type ProjectLinkControllerGenerateResult = NonNullable<
 export type ProjectLinkControllerRemoveResult = NonNullable<
   Awaited<ReturnType<typeof projectLinkControllerRemove>>
 >;
+export type ProjectMemberControllerGetMembersByProjectIdResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerGetMembersByProjectId>>
+>;
+export type ProjectMemberControllerGetRoleByProjectIdResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerGetRoleByProjectId>>
+>;
+export type ProjectMemberControllerGetRoleByBoardIdResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerGetRoleByBoardId>>
+>;
+export type ProjectMemberControllerGetRoleByListIdResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerGetRoleByListId>>
+>;
+export type ProjectMemberControllerGetRoleByCardIdResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerGetRoleByCardId>>
+>;
+export type ProjectMemberControllerChangeRoleResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerChangeRole>>
+>;
+export type ProjectMemberControllerDeleteMemberResult = NonNullable<
+  Awaited<ReturnType<typeof projectMemberControllerDeleteMember>>
+>;
 export type BoardControllerCreateResult = NonNullable<
   Awaited<ReturnType<typeof boardControllerCreate>>
 >;
@@ -791,6 +949,9 @@ export type ListControllerUpdateResult = NonNullable<
 >;
 export type CardControllerCreateResult = NonNullable<
   Awaited<ReturnType<typeof cardControllerCreate>>
+>;
+export type CardControllerSetExecutorResult = NonNullable<
+  Awaited<ReturnType<typeof cardControllerSetExecutor>>
 >;
 export type CardControllerAttachFileResult = NonNullable<
   Awaited<ReturnType<typeof cardControllerAttachFile>>

@@ -12,9 +12,17 @@ import { ListTitle } from "./list-title";
 export function BoardList({
   listData,
   index,
+  canRenameList = false,
+  canArchiveList = false,
+  canCreateCard = false,
+  canArchiveCard = false,
 }: {
   listData: ListDto;
   index?: number;
+  canRenameList?: boolean;
+  canArchiveList?: boolean;
+  canCreateCard?: boolean;
+  canArchiveCard?: boolean;
 }) {
   const { toggle, isToggleListPending } = useToggleListArchive(listData.id);
 
@@ -43,6 +51,7 @@ export function BoardList({
               >
                 <ListTitle
                   listData={listData}
+                  canRename={canRenameList}
                   className={cn(
                     "mr-2 flex-grow flex-shrink basis-[min-content]",
                   )}
@@ -53,7 +62,7 @@ export function BoardList({
                   )}
                   style={{ marginTop: "0" }}
                   pressed={listData.isArchived}
-                  disabled={isToggleListPending}
+                  disabled={isToggleListPending || !canArchiveList}
                   onPressedChange={toggle}
                 >
                   <Archive className={cn("w-4 h-4")} />
@@ -83,12 +92,14 @@ export function BoardList({
                   </CardContent>
                 )}
               </Droppable>
-              <CardFooter className={cn("p-2 pb-0")}>
-                <CreateCardForm
-                  listData={listData}
-                  className={cn("min-w-100 flex-grow")}
-                />
-              </CardFooter>
+              {canCreateCard && (
+                <CardFooter className={cn("p-2 pb-0")}>
+                  <CreateCardForm
+                    listData={listData}
+                    className={cn("min-w-100 flex-grow")}
+                  />
+                </CardFooter>
+              )}
             </Card>
           </div>
         </li>

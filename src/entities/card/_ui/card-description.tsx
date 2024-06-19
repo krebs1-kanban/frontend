@@ -1,22 +1,26 @@
-import { CardDto } from "@/shared/api/generated"
-import { Toggle } from "@/shared/ui/toggle"
-import { cn } from "@/shared/ui/utils"
-import { Archive } from "lucide-react"
-import { useToggleCardArchive } from "../_vm/use-toggle-card-archieve"
-import { HasAttachments } from "./has-attachments"
-import { HasDate } from "./has-date"
-import { HasDescription } from "./has-description"
+import { CardDto } from "@/shared/api/generated";
+import { Toggle } from "@/shared/ui/toggle";
+import { cn } from "@/shared/ui/utils";
+import { Archive } from "lucide-react";
+import { useToggleCardArchive } from "../_vm/use-toggle-card-archieve";
+import { HasAttachments } from "./has-attachments";
+import { HasDate } from "./has-date";
+import { HasDescription } from "./has-description";
+import { HasExecutors } from "./has-executors";
 
 export function CardDescription({
   cardData,
   className,
+  canArchive = false,
 }: {
   cardData: CardDto;
   className?: string;
+  canArchive?: boolean;
 }) {
   const hasDescription = Boolean(cardData.description);
   const hasDate = Boolean(cardData.dueDateTime);
   const hasAttachments = Boolean(cardData.files.length);
+  const hasExecutors = Boolean(cardData.user_ids.length);
 
   const { isToggleCardPending, toggle } = useToggleCardArchive(cardData.id);
 
@@ -31,11 +35,12 @@ export function CardDescription({
     >
       <div className={cn("flex flex-row gap-x-2 flex-wrap max-w-full")}>
         {hasDescription && <HasDescription className={cn("")} />}
-        {hasDate && (
-          <HasDate className={cn("")} dueDateTime={cardData.dueDateTime} />
-        )}
+        {hasDate && <HasDate dueDateTime={cardData.dueDateTime} />}
         {hasAttachments && (
           <HasAttachments attachmentsCount={cardData.files.length} />
+        )}
+        {hasExecutors && (
+          <HasExecutors executorsNumber={cardData.user_ids.length} />
         )}
       </div>
       <div className={cn("flex flex-row items-center")}>
@@ -45,7 +50,7 @@ export function CardDescription({
           )}
           style={{ marginTop: "0" }}
           pressed={cardData.isArchived}
-          disabled={isToggleCardPending}
+          disabled={isToggleCardPending || !canArchive}
           onPressedChange={toggle}
           onClick={(e) => {
             e.stopPropagation();

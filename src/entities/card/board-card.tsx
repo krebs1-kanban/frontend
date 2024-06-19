@@ -10,9 +10,11 @@ import { TagBadgeList } from "./_ui/tag-badge-list";
 export function BoardCard({
   cardData,
   className,
+  canArchive = false,
 }: {
   cardData: CardDto;
   className?: string;
+  canArchive?: boolean;
 }) {
   return (
     <Card
@@ -49,6 +51,7 @@ export function BoardCard({
           <CardDescription
             cardData={cardData}
             className={cn("mt-2 text-foreground/80")}
+            canArchive={canArchive}
           />
         </CardContent>
       </div>

@@ -128,6 +128,132 @@ paths:
                 $ref: '#/components/schemas/ProjectDto'
       tags:
         - projects
+  /api/project-member/all/{projectId}:
+    get:
+      operationId: ProjectMemberController_getMembersByProjectId
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectMemberWithDetailsDto'
+      tags:
+        - project-member
+  /api/project-member/project/{projectId}:
+    get:
+      operationId: ProjectMemberController_getRoleByProjectId
+      parameters:
+        - name: projectId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectMemberRoleDto'
+      tags:
+        - project-member
+  /api/project-member/board/{boardId}:
+    get:
+      operationId: ProjectMemberController_getRoleByBoardId
+      parameters:
+        - name: boardId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectMemberRoleDto'
+      tags:
+        - project-member
+  /api/project-member/list/{listId}:
+    get:
+      operationId: ProjectMemberController_getRoleByListId
+      parameters:
+        - name: listId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectMemberRoleDto'
+      tags:
+        - project-member
+  /api/project-member/card/{cardId}:
+    get:
+      operationId: ProjectMemberController_getRoleByCardId
+      parameters:
+        - name: cardId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectMemberRoleDto'
+      tags:
+        - project-member
+  /api/project-member/change-role:
+    patch:
+      operationId: ProjectMemberController_changeRole
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/changeRoleDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectMemberDto'
+      tags:
+        - project-member
+  /api/project-member:
+    delete:
+      operationId: ProjectMemberController_deleteMember
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteMemberDto'
+      responses:
+        '204':
+          description: ''
+      tags:
+        - project-member
   /api/boards:
     post:
       operationId: BoardController_create
@@ -301,6 +427,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CardDto'
+      tags:
+        - cards
+  /api/cards/set-executor:
+    post:
+      operationId: CardController_setExecutor
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetExecutorDto'
+      responses:
+        '201':
+          description: ''
       tags:
         - cards
   /api/cards/files/{id}:
@@ -807,6 +948,50 @@ components:
             - MEMBER
             - ADMIN
           nullable: true
+    ProjectMemberRoleDto:
+      type: object
+      properties:
+        role:
+          type: string
+          example: ADMIN
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+      required:
+        - role
+    changeRoleDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          nullable: false
+        projectId:
+          type: string
+          nullable: false
+        role:
+          type: string
+          nullable: false
+          enum:
+            - OBSERVER
+            - MEMBER
+            - ADMIN
+      required:
+        - userId
+        - projectId
+        - role
+    deleteMemberDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          nullable: false
+        projectId:
+          type: string
+          nullable: false
+      required:
+        - userId
+        - projectId
     CreateBoardDto:
       type: object
       properties:
@@ -902,6 +1087,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FileDto'
+        user_ids:
+          type: array
+          items:
+            type: string
       required:
         - id
         - listId
@@ -914,6 +1103,7 @@ components:
         - index
         - tags
         - files
+        - user_ids
     ListDto:
       type: object
       properties:
@@ -1055,6 +1245,22 @@ components:
       required:
         - name
         - listId
+    SetExecutorDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          nullable: false
+        cardId:
+          type: string
+          nullable: false
+        execute:
+          type: boolean
+          nullable: false
+      required:
+        - userId
+        - cardId
+        - execute
     AttachFilesDto:
       type: object
       properties:
